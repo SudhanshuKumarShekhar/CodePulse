@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../category/services/category.service';
 import { Observable } from 'rxjs';
 import { category } from '../../category/Models/category.model';
+import { ImageService } from 'src/app/shared/components/image-selector/image.service';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -14,8 +15,9 @@ import { category } from '../../category/Models/category.model';
 export class AddBlogpostComponent implements OnInit{
   model : AddBlogPost;
   categories$?:Observable<category[]>
+  isImageSelectorVisible: boolean =false;
   constructor(private blogPostService:BlogPostService, private router:Router,
-     private categoyService:CategoryService) {
+     private categoyService:CategoryService, private imageService:ImageService) {
    this.model = {
     title :'',
     shortDescription:'',
@@ -31,6 +33,12 @@ export class AddBlogpostComponent implements OnInit{
   }
   ngOnInit(): void {
     this.categories$= this.categoyService.getAllCategories();
+    this.imageService.onSelectImage().subscribe({
+      next :(selectedImage)=>{
+        this.model.featuredImageUrl = selectedImage.url;
+        this.closeImageSelector();
+      }
+    })
   }
 
   onFormSubmit(): void{
@@ -40,5 +48,12 @@ export class AddBlogpostComponent implements OnInit{
       }
     });
   }
+
+  OpenImageSelector() :void{
+    this.isImageSelectorVisible =true;
+}
+closeImageSelector() :void{
+this.isImageSelectorVisible=false;
+}
 
 }

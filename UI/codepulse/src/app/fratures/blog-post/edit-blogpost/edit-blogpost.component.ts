@@ -6,6 +6,7 @@ import { CategoryService } from '../../category/services/category.service';
 import { Observable } from 'rxjs';
 import { category } from '../../category/Models/category.model';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
+import { ImageService } from 'src/app/shared/components/image-selector/image.service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -21,7 +22,8 @@ export class EditBlogpostComponent implements OnInit{
   isImageSelectorVisible: boolean =false;
   
   constructor(private route: ActivatedRoute, private blogPostService:BlogPostService,
-     private categoryService:CategoryService, private router:Router) {
+     private categoryService:CategoryService, private router:Router,
+     private imageService : ImageService) {
     
   }
   ngOnInit(): void {
@@ -43,6 +45,15 @@ export class EditBlogpostComponent implements OnInit{
         }
       });
     }
+
+    this.imageService.onSelectImage().subscribe({
+      next: (res)=>{
+        if(this.model){
+          this.model.featuredImageUrl = res.url;
+          this.isImageSelectorVisible=false;
+        }
+      }
+    })
   }
 
   onFormSubmit():void{

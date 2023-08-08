@@ -13,6 +13,8 @@ import { AddBlogpostComponent } from './fratures/blog-post/add-blogpost/add-blog
 import { MarkdownModule } from 'ngx-markdown';
 import { EditBlogpostComponent } from './fratures/blog-post/edit-blogpost/edit-blogpost.component';
 import { ImageSelectorComponent } from './shared/components/image-selector/image-selector.component';
+import { HomeComponent } from './fratures/public/home/home.component';
+import { BlogDetailsComponent } from './fratures/public/blog-details/blog-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ImageSelectorComponent } from './shared/components/image-selector/image
     BlogpostListComponent,
     AddBlogpostComponent,
     EditBlogpostComponent,
-    ImageSelectorComponent
+    ImageSelectorComponent,
+    HomeComponent,
+    BlogDetailsComponent
   ],
   imports: [
     BrowserModule,
