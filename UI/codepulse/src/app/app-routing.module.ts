@@ -8,10 +8,14 @@ import { AddBlogpostComponent } from './fratures/blog-post/add-blogpost/add-blog
 import { EditBlogpostComponent } from './fratures/blog-post/edit-blogpost/edit-blogpost.component';
 import { HomeComponent } from './fratures/public/home/home.component';
 import { BlogDetailsComponent } from './fratures/public/blog-details/blog-details.component';
+import { LoginComponent } from './fratures/auth/login/login.component';
 
 const routes: Routes = [
   {
     path:'', component: HomeComponent
+  },
+  {
+    path:'login', component: LoginComponent
   },
   {
     path:'blog/:url', component: BlogDetailsComponent

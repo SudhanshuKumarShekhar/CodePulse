@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
@@ -15,6 +15,8 @@ import { EditBlogpostComponent } from './fratures/blog-post/edit-blogpost/edit-b
 import { ImageSelectorComponent } from './shared/components/image-selector/image-selector.component';
 import { HomeComponent } from './fratures/public/home/home.component';
 import { BlogDetailsComponent } from './fratures/public/blog-details/blog-details.component';
+import { LoginComponent } from './fratures/auth/login/login.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { BlogDetailsComponent } from './fratures/public/blog-details/blog-detail
     EditBlogpostComponent,
     ImageSelectorComponent,
     HomeComponent,
-    BlogDetailsComponent
+    BlogDetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,13 @@ import { BlogDetailsComponent } from './fratures/public/blog-details/blog-detail
     HttpClientModule,
     MarkdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
